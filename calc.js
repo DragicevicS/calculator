@@ -19,7 +19,7 @@ del.addEventListener('click', () => {
   display.textContent = '';
 });
 
-function calculateExpression() {
+function calculate() {
   const str = display.textContent;
   const regex = /[-+*/]|\d+\.\d+|\d+/g;
   let match;
@@ -37,7 +37,7 @@ function calculateExpression() {
     if (!isNaN(parseFloat(token))) { // check if token is a number
       numStack.push(parseFloat(token)); // push number to numStack
     } else if (token === "+" || token === "-") { // check for addition or subtraction
-      while (opStack.length > 0 && opStack[opStack.length - 1] !== "(") {
+      while (opStack.length > 0) {
         let op = opStack.pop();
         let b = numStack.pop();
         let a = numStack.pop();
@@ -82,5 +82,5 @@ function performOperation(a, b, op) {
 
 const equal = document.querySelector('#equal');
 equal.addEventListener('click', () => {
-  display.textContent = '=' + calculateExpression();
+  display.textContent = '=' + calculate();
 });
